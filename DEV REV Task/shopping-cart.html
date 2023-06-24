@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cart</title>
+  <script src="script.js"></script>
+  <script src="home.js"></script>
+  <style>
+    /* CSS Styles for Add to Cart page */
+    body {
+      font-family: Arial, sans-serif;
+    }
+  
+    .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: linear-gradient(to right, #1e6cc7, #1e6cc7);
+  }
+  
+    .book-item {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+      margin-bottom: 10px;
+    }
+  
+    .book-item img {
+      width: 80px;
+      height: auto;
+      margin-right: 10px;
+    }
+  
+    .book-info {
+      flex-grow: 1;
+    }
+  
+    .book-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  
+    .book-author {
+      font-size: 14px;
+      color: #666;
+    }
+  
+    .book-description {
+      margin-bottom: 5px;
+    }
+  
+    .book-price {
+      font-weight: bold;
+    }
+  
+    .quantity-input {
+      width: 40px;
+    }
+  
+    .add-to-cart-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    body {
+            background-image:url(background.jpg);
+            background-position: absolute;
+            background-size: cover;
+        } 
+        .book-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 250px 10;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: linear-gradient(to right, #2741d0, #cccedd96);
+  width: 100%;
+  justify-content: center;
+  margin-left: 10px;
+}
+header {
+    background-color: #1e6cc7;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+nav ul li {
+    margin-right: 10px;
+}
+
+nav ul li a {
+    position: relative;
+    font-size: 0.8cm;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+nav ul li a::after{
+  content:'';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100px;
+  height: 3px;
+  background: #fff;
+  border-radius: 5px;
+  transform: scaleX(0);
+  transition: transform .5s;
+}
+nav ul li a:hover::after {
+    transform: scaleX(1);
+}
+
+  </style>
+</head>
+<body>
+    <header>
+        <!-- Header content goes here -->
+        <div class="logo">
+            <img src="logo.png" alt="Library Logo">
+            <h1>LIBROSENSE</h1>
+        </div>
+        <nav >
+            <ul>
+                <li><a href="#"onclick="redirectTohome()">Home</a></li>
+                <li><a href="#"onclick="redirectToBooks()">Books</a></li>
+            </ul>
+        </nav>
+    </header>
+  <div class="container">
+    <h1>SHOPPING CART</h1>
+
+    <div class="book-item">
+      <img src="book1.png" alt="Book 1">
+      <div class="book-info">
+        <h2 class="book-title">Harry Potter and The Philosopher's Stone</h2>
+        <p class="book-author">Author: J.K.Rowling</p>
+        <p class="book-description">"Harry Potter and the Philosopher's Stone" is a captivating fantasy novel by J.K. Rowling. Follow young Harry Potter as he discovers he is a wizard, attends Hogwarts School of Witchcraft and Wizardry, and unravels the mystery behind the powerful Philosopher's Stone while facing magical challenges and a dark wizard.</p>
+        <p class="book-price">Price: ₹818.76</p>
+        <label for="quantity1">Quantity:</label>
+        <input type="number" id="quantity1" class="quantity-input" value="1" min="1">
+        <button class="add-to-cart-button" onclick="addToCart('Book 1', '818.76', 'quantity1')">BUY</button>
+      </div>
+    </div>
+
+    <div class="book-item">
+      <img src="book2.png" alt="Book 2">
+      <div class="book-info">
+        <h2 class="book-title">Harry Potter and The Chamber of Secrets</h2>
+        <p class="book-author">Author: J.K.Rowling</p>
+        <p class="book-description">In "Harry Potter and the Chamber of Secrets," J.K. Rowling takes readers back to Hogwarts. When a mysterious chamber is opened, unleashing a terrifying creature, Harry and his friends must uncover the secrets within the school's ancient past to save their fellow students from danger and confront the heir of Slytherin.</p>
+        <p class="book-price">Price: ₹1064.63</p>
+        <label for="quantity2">Quantity:</label>
+        <input type="number" id="quantity2" class="quantity-input" value="1" min="1">
+        <button class="add-to-cart-button" onclick="addToCart('Book 2', '1064.63', 'quantity2')">BUY</button>
+      </div>
+    </div>
+
+    <div class="book-item">
+      <img src="book3.png" alt="Book 3">
+      <div class="book-info">
+        <h2 class="book-title">Harry Potter and The Goblet of Fire</h2>
+        <p class="book-author">Author: J.K.Rowling</p>
+        <p class="book-description">In "Harry Potter and the Goblet of Fire" by J.K. Rowling, Harry finds himself unexpectedly entered into the dangerous Triwizard Tournament. As he faces thrilling tasks, deadly challenges, and the resurgence of Lord Voldemort, Harry must navigate treacherous waters and confront the truth of his destiny in the wizarding world.</p>
+        <p class="book-price">Price: ₹1228.55</p>
+        <label for="quantity3">Quantity:</label>
+        <input type="number" id="quantity3" class="quantity-input" value="1" min="1">
+        <button class="add-to-cart-button" onclick="addToCart('Book 3', '1228.55', 'quantity3')">BUY</button>
+      </div>
+    </div>
+
+    <div class="book-item">
+      <img src="book4.png" alt="Book 4">
+      <div class="book-info">
+        <h2 class="book-title">Waking the Dreamer</h2>
+        <p class="book-author">Author: Andy Kaiser</p>
+        <p class="book-description">"Waking the Dreamer" is a captivating fantasy novel that follows the extraordinary journey of a young dreamer named Emily. As she discovers her ability to enter a mystical dream realm, she must unravel its secrets, confront ancient forces, and harness her newfound powers to save both realms from impending doom.</p>
+        <p class="book-price">Price: ₹982.67</p>
+        <label for="quantity4">Quantity:</label>
+        <input type="number" id="quantity4" class="quantity-input" value="1" min="1">
+        <button class="add-to-cart-button" onclick="addToCart('Book 4', '982.67', 'quantity4')">BUY</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function addToCart(bookTitle, bookPrice, quantityInputId) {
+      var quantity = parseInt(document.getElementById(quantityInputId).value);
+      var totalPrice = parseFloat(bookPrice) * quantity;
+      alert(quantity + ' ' + bookTitle + '(s) product booking confirmed. Total Price: ₹' + totalPrice.toFixed(2));
+    }
+  </script>
+</body>
+</html>

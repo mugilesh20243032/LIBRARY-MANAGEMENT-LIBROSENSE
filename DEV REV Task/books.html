@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Search</title>
+    <script src="cart.js"></script>
+    <script src="home.js"></script>
+    <style>
+        /* CSS Styles for Filters, Book List, and Pagination */
+        /* ... (existing CSS code) ... */
+
+        .filters {
+            /* Styles for filters go here */
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+            background-color: hsla(0, 0%, 0%, 0.689);
+            border-radius: 2rem;
+            padding: 0.6rem 1rem;
+            align-items: center;
+        }
+        .filters select,
+        .filters input[type="text"] {
+            margin-right: 10px;
+            background: transparent;
+            width: 30vw;
+            margin-left: 1rem;
+            font-size: 0.9rem;
+            color: hsl(252, 22%, 91%);
+        }
+        /* CSS Styles for the Search Input */
+#search-input {
+  /* Styles for the search input go here */
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+}
+
+        /* CSS Styles for the Search Button */
+#search-button {
+  /* Styles for the search button go here */
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-image: linear-gradient(to right, #4b6cb7, #182848);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+/* CSS Styles for the Sort Select Dropdown */
+#sort-select {
+  /* Styles for the sort select dropdown go here */
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  border: none;
+  background-image: linear-gradient(to right,#5954d9, #e0e0e08a);
+  color: rgb(7, 7, 7);
+}
+/* CSS Styles for the Order Select Dropdown */
+#order-select {
+  /* Styles for the order select dropdown go here */
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  border: none;
+  background-image: linear-gradient(to right, #5954d9, #e0e0e08a);
+  color: rgb(3, 3, 3);
+}
+/* CSS Styles for the "Add to Cart" Button */
+button.addToCartButton {
+  /* Styles for the "Add to Cart" button go here */
+  border-radius: 20px;
+  padding: 8px 20px;
+  background-color: black;
+  color: white;
+}
+
+
+        body {
+            background-image:url(library.jpg);
+            background-position: absolute;
+            background-size: cover;
+        } 
+
+        .book-list {
+            /* Styles for book list go here */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+        /* ... (existing CSS code) ... */
+
+        /* CSS Styles for Sort Options */
+        .sort-options {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .sort-options select {
+            margin-right: 10px;
+        }
+        .pagination {
+            
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-top: 20px;
+        }
+        .book-item {
+        /* Existing styles for the book item */
+         background-color: #f1f1f1;
+         padding: 10px;
+          border-radius: 5px;
+         box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  
+        /* Gradient border styles */
+         background-image: linear-gradient(to right, #5954d9, #e0e0e08a);
+         border: 2px solid;
+          border-image-slice: 1;
+         border-image-source: linear-gradient(to right, #737adc, #ededed8c);
+        }
+        /* CSS Styles for the Pagination Buttons */
+.pagination button {
+  /* Styles for the pagination buttons go here */
+  border-radius: 20px;
+  padding: 8px 12px;
+  background-color: black;
+  color: white;
+}
+header {
+    color: #fffdfd;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+nav ul li {
+    margin-right: 10px;
+}
+
+nav ul li a {
+    position: relative;
+    font-size: 0.8cm;
+    color: #000000;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+nav ul li a::after{
+  content:'';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100px;
+  height: 3px;
+  background: #000000;
+  border-radius: 5px;
+  transform: scaleX(0);
+  transition: transform .5s;
+}
+nav ul li a:hover::after {
+    transform: scaleX(1);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Header content goes here -->
+        <div class="logo">
+            <img src="logo.png" alt="Library Logo">
+            <h1>LIBROSENSE</h1>
+        </div>
+        <nav >
+            <ul>
+                <li><a href="#"onclick="redirectTohome()">Home</a></li>
+                <li><a href="#"onclick="redirectToCarts()">Cart</a></li>
+            </ul>
+        </nav>
+    </header>   
+    <div class="filters">
+        <!-- Filters go here -->
+        <input type="text" id="search-input" placeholder="Enter a search term">
+        <button type="submit" id="search-button">Search</button>
+    </div>
+
+    <div class="sort-options">
+        <!-- Sort options go here -->
+        <select id="sort-select">
+            <option value="relevance">Relevance</option>
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="subject">Subject</option>
+            <option value="date">Publish Date</option>
+        </select>
+        <select id="order-select">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+    </div>
+
+    <div class="book-list">
+        <!-- Book list goes here -->
+    </div>
+
+    <div class="pagination">
+        <!-- Pagination goes here -->
+    </div>
+
+    <script>
+        const apiKey = 'AIzaSyCCuKaG0sqbKlLOZXvIZxuo45HkWQM_aMc'; // Replace with your Google Books API key
+        const booksPerPage = 10;
+        let currentPage = 1;
+        let totalItems = 0;
+        let currentSortBy = 'relevance';
+        let currentSortOrder = 'asc';
+
+        // Function to fetch book data from Google Books API
+        function fetchBooks(searchTerm, startIndex) {
+            const sortOptions = document.getElementById('sort-select');
+            const sortOrder = document.getElementById('order-select');
+            currentSortBy = sortOptions.value;
+            currentSortOrder = sortOrder.value;
+
+            const url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&filter=paid-ebooks&startIndex=${startIndex}&maxResults=${booksPerPage}&orderBy=${currentSortBy}&printType=books&key=${apiKey}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const books = data.items;
+
+                    if (books) {
+                        const bookList = document.querySelector('.book-list');
+                        bookList.innerHTML = '';
+
+                        books.forEach(book => {
+                            const bookInfo = book.volumeInfo;
+
+                            const title = document.createElement('h2');
+                            title.textContent = bookInfo.title;
+
+                            const authors = document.createElement('p');
+                            authors.textContent = 'Authors: ' + (bookInfo.authors ? bookInfo.authors.join(', ') : 'Unknown');
+
+                            const thumbnail = document.createElement('img');
+                            thumbnail.src = bookInfo.imageLinks?.thumbnail || '';
+
+                            const retailPrice = document.createElement('p');
+                            retailPrice.textContent = 'Price:₹' + (book.saleInfo?.listPrice?.amount||'N/A');
+
+                            const addToCartButton = document.createElement('button');
+                            addToCartButton.textContent = 'Add to Cart';
+                            addToCartButton.classList.add('addToCartButton');
+                            addToCartButton.addEventListener('click', () => {
+                                // Redirect to the shopping cart HTML file
+                                window.location.href = 'shopping-cart.html';
+                            });
+
+                            const bookItem = document.createElement('div');
+                            bookItem.classList.add('book-item');
+                            bookItem.appendChild(thumbnail);
+                            bookItem.appendChild(title);
+                            bookItem.appendChild(authors);
+                            bookItem.appendChild(retailPrice);
+                            bookItem.appendChild(addToCartButton);
+                            bookList.appendChild(bookItem);
+                        });
+
+                        totalItems = data.totalItems || 0;
+                        updatePagination();
+                    } else {
+                        console.log('No books found.');
+                    }
+                })
+                .catch(error => {
+                    console.log('An error occurred:', error);
+                });
+        }
+
+        // Function to update the pagination buttons
+        function updatePagination() {
+            const totalPages = Math.ceil(totalItems / booksPerPage);
+
+            const pagination = document.querySelector('.pagination');
+            pagination.innerHTML = '';
+
+            const maxVisiblePages = 4;
+            const halfVisiblePages = Math.floor(maxVisiblePages / 2);
+            let startPage = currentPage - halfVisiblePages;
+            let endPage = currentPage + halfVisiblePages;
+
+            if (startPage < 1) {
+                startPage = 1;
+                endPage = Math.min(totalPages, maxVisiblePages);
+            }
+
+            if (endPage > totalPages) {
+                endPage = totalPages;
+                startPage = Math.max(1, totalPages - maxVisiblePages + 1);
+            }
+
+            if (currentPage > 1) {
+                const prevButton = document.createElement('button');
+                prevButton.textContent = 'Prev';
+                prevButton.addEventListener('click', () => {
+                    currentPage--;
+                    const searchTerm = document.getElementById('search-input').value;
+                    const startIndex = (currentPage - 1) * booksPerPage;
+                    fetchBooks(searchTerm, startIndex);
+                });
+                pagination.appendChild(prevButton);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                if (i === currentPage) {
+                    button.classList.add('active');
+                }
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    const searchTerm = document.getElementById('search-input').value;
+                    const startIndex = (currentPage - 1) * booksPerPage;
+                    fetchBooks(searchTerm, startIndex);
+                });
+                pagination.appendChild(button);
+            }
+
+            if (currentPage < totalPages) {
+                const nextButton = document.createElement('button');
+                nextButton.textContent = 'Next';
+                nextButton.addEventListener('click', () => {
+                    currentPage++;
+                    const searchTerm = document.getElementById('search-input').value;
+                    const startIndex = (currentPage - 1) * booksPerPage;
+                    fetchBooks(searchTerm, startIndex);
+                });
+                pagination.appendChild(nextButton);
+            }
+
+            const endButton = document.createElement('button');
+            endButton.textContent = 'End';
+            endButton.addEventListener('click', () => {
+                currentPage = totalPages;
+                const searchTerm = document.getElementById('search-input').value;
+                const startIndex = (currentPage - 1) * booksPerPage;
+                fetchBooks(searchTerm, startIndex);
+            });
+            pagination.appendChild(endButton);
+        }
+
+        // Function to handle the search button click event
+        document.getElementById('search-button').addEventListener('click', () => {
+            currentPage = 1;
+            const searchTerm = document.getElementById('search-input').value;
+            const startIndex = (currentPage - 1) * booksPerPage;
+            fetchBooks(searchTerm, startIndex);
+        });
+
+        // Function to handle the sort options change event
+        document.getElementById('sort-select').addEventListener('change', () => {
+            currentPage = 1;
+            const searchTerm = document.getElementById('search-input').value;
+            const startIndex = (currentPage - 1) * booksPerPage;
+            fetchBooks(searchTerm, startIndex);
+        });
+
+        // Function to handle the sort order change event
+        document.getElementById('order-select').addEventListener('change', () => {
+            currentPage = 1;
+            const searchTerm = document.getElementById('search-input').value;
+            const startIndex = (currentPage - 1) * booksPerPage;
+            fetchBooks(searchTerm, startIndex);
+        });
+
+        fetchBooks('', 0);
+    </script>
+</body>
+</html>
